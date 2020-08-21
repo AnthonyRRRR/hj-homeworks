@@ -31,5 +31,35 @@
       </div>
     </div>
   </section>
+<script>
+  const img = document.getElementById('slider');
+  const photos = ['airmax-jump.png',
+                  'airmax-on-foot.png',
+                  'airmax-playground.png',
+                  'airmax-top-view.png',
+                  'airmax.png'];
+
+
+  let photoStep = 0;
+  setImgSrc ();
+
+  setInterval(() => {
+    if(photoStep +1 === photos.length) {
+      photoStep = 0;
+    } else {
+      photoStep++;
+      setImgSrc ();
+    }
+
+
+  },2000);
+
+
+  function setImgSrc () {
+    img.src = `./i/${photos[photoStep]}`
+  }
+
+
+</script>
 </body>
 </html>

@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Задача 2. «Пасхалка» | Домашнее задание к лекции 2.1</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://use.fontawesome.com/70378a66b8.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Задача 2. «Пасхалка» | Домашнее задание к лекции 2.1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://use.fontawesome.com/70378a66b8.js"></script>
 </head>
 <body>
-  <nav>
+<nav>
     <a href="#">Главная</a>
     <a href="#">Статьи</a>
     <a href="#">Новости</a>
     <a href="#">Контакты</a>
-  </nav>
+</nav>
 
-  <main>
+<main>
     <div class="menu-tip">
-      <div class="menu-icon">
-        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
-      </div>
+        <div class="menu-icon">
+            <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        </div>
     </div>
 
     <h1>Контент</h1>
 
     <div class="secret">
-      <svg viewBox="0 0 600 300">
+        <svg viewBox="0 0 600 300">
 
-        <!-- Symbol -->
-        <symbol id="s-text">
-          <text text-anchor="middle"
-                  x="50%" y="50%" dy=".35em">
-             нетология
-           </text>
-        </symbol>
+            <!-- Symbol -->
+            <symbol id="s-text">
+                <text text-anchor="middle"
+                      x="50%" y="50%" dy=".35em">
+                    нетология
+                </text>
+            </symbol>
 
-        <!-- Duplicate symbols -->
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-      </svg>
+            <!-- Duplicate symbols -->
+            <use xlink:href="#s-text" class="text"></use>
+            <use xlink:href="#s-text" class="text"></use>
+            <use xlink:href="#s-text" class="text"></use>
+            <use xlink:href="#s-text" class="text"></use>
+            <use xlink:href="#s-text" class="text"></use>
+        </svg>
     </div>
-  </main>
+</main>
+<script>
+  const nav = document.getElementsByTagName('nav')[0];
+  const secret = document.getElementsByClassName('secret')[0];
+  const secretCode = ['keyY', 'keyT', 'keyN', 'keyJ', 'keyK', 'keyJ', 'keyU', 'keyB','keyZ'];
+  const userCode = [];
+
+  document.addEventListener('keydown', toggleMenu);
+  document.addEventListener('keydown', checkSecretCode);
+
+  function toggleMenu(e) {
+    if (e.ctrlKey && e.altKey && e.code === 'keyT') {
+      return;
+    } else {
+      nav.classList.toggle('visible');
+    }
+  }
+
+  function checkSecretCode() {
+
+  }
+</script>
 </body>
 </html>

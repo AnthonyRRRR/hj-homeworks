@@ -25,14 +25,26 @@ function backClick() {
   container.classList.remove('details');
   const items = document.querySelectorAll('.list-view li');
   for (let item of items) {
-      item.classList.remove('active');
+    item.classList.remove('active');
   }
 }
+
+function pushContacts() {
+  const contacts = JSON.parse(loadContacts());
+  const contactsList = container.querySelector('.contacts-list');
+  contactsList.innerHTML = '';
+  contacts.forEach((contact) => {
+    contactsList.innerHTML += `<li data-email = "${ contact.email }" data-phone = "${ contact.phone }"
+       <strong>${ contact.name }</strong> </li>`
+  })
+}
+
 
 function init() {
   container = document.getElementById('container');
   container.querySelector('.list-view').addEventListener('click', contactClick);
   container.querySelector('.back').addEventListener('click', backClick);
+  pushContacts();
 }
 
 document.addEventListener('DOMContentLoaded', init);

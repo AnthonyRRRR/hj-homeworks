@@ -1,29 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Задача 1. Пианино | Домашнее задание к лекции 2.1</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Задача 1. Пианино | Домашнее задание к лекции 2.1</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <ul class="set middle">
+<ul class="set middle">
     <li class="white">
-      <audio src=""></audio>
+        <audio src=""></audio>
     </li>
     <li class="black">
-      <audio src=""></audio>
+        <audio src=""></audio>
     </li>
-  	<li class="white">
-      <audio src=""></audio>
+    <li class="white">
+        <audio src=""></audio>
     </li>
     <li class="black">
-      <audio src=""></audio>
+        <audio src=""></audio>
     </li>
-  	<li class="white">
-      <audio src=""></audio>
+    <li class="white">
+        <audio src=""></audio>
     </li>
-  </ul>
+</ul>
+<script>
+  const keys = ['first', 'second', 'third', 'fourth', 'fifth'];
+  const set = document.getElementsByClassName('set')[0];
+  const buttons = Array.from(set.getElementsByTagName('li'));
+  document.addEventListener('keydown', setPianoMode);
+  document.addEventListener('keyup', removePianoMode);
+
+  for (const button of buttons) {
+    button.addEventListener('click', playSound);
+  }
+
+  function getCurrMode() {
+    if (set.classList.contains('middle')) {
+      return 'middle';
+    }
+
+    if (set.classList.contains('lower')) {
+      return 'lower';
+    }
+
+    if (set.classList.contains('higher')) {
+      return 'higher';
+    }
+  }
+
+  function setLowerMode() {
+    set.classList.remove('middle');
+    set.classList.add('lower');
+  }
+
+  function removeLowerMode() {
+    set.classList.remove('lower');
+    set.classList.add('middle')
+  }
+
+  function setHigherMode() {
+    set.classList.remove('middle');
+    set.classList.add('higher');
+  }
+
+  function removeHigherMode() {
+    set.classList.remove('higher');
+    set.classList.add('middle');
+  }
+
+  function setPianoMode(event) {
+    switch (event.key) {
+      case 'Shift':
+        event.preventDefault();
+        if (!event.repeat) {
+          setLowerMode()
+        }
+        break;
+      case
+      'Alt':
+        event.preventDefault();
+        if (!event.repeat) {
+          setHigherMode();
+        }
+        break;
+    }
+  }
+
+  function removePianoMode(event) {
+    switch (event.key) {
+      case 'Shift':
+        event.preventDefault();
+        removeLowerMode();
+        break;
+
+      case 'Alt':
+        event.preventDefault();
+        removeHigherMode();
+        break;
+    }
+  }
+
+  function playSound(event) {
+    const index = buttons.indexOf(event.target);
+    const audio = event.target.getElementsByTagName('audio')[0];
+    audio.src = `./sounds/${ getCurrMode() }/${ keys[index] }.mp3`;
+    audio.play();
+  }
+</script>
 </body>
 </html>

@@ -1,42 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="mediaplayer">
-  	<audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
-  	<div class="discarea">
-  		<div class="disc">
-  		</div>
-  		<div class="stylus">
-  			<div class="pivot"></div>
-  			<div class="arm"></div>
-  			<div class="head"></div>
-  		</div>
-  	</div>
-  	<div class="controls">
-  		<span class="title" title="LA Chill Tour"></span>
-  		<div class="buttons">
-  			<button class="back">
-  				<i class="fa fa-backward"></i>
-  			</button>
-  			<button class="playstate">
-  				<i class="fa fa-play"></i>
-  				<i class="fa fa-pause"></i>
-  			</button>
-  			<button class="stop">
-  				<i class="fa fa-stop"></i>
-  			</button>
-  			<button class="next">
-  				<i class="fa fa-forward"></i>
-  			</button>
-  		</div>
-  	</div>
-  </div>
+<div class="mediaplayer">
+    <audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
+    <div class="discarea">
+        <div class="disc">
+        </div>
+        <div class="stylus">
+            <div class="pivot"></div>
+            <div class="arm"></div>
+            <div class="head"></div>
+        </div>
+    </div>
+    <div class="controls">
+        <span class="title" title="LA Chill Tour"></span>
+        <div class="buttons">
+            <button class="back">
+                <i class="fa fa-backward"></i>
+            </button>
+            <button class="playstate">
+                <i class="fa fa-play"></i>
+                <i class="fa fa-pause"></i>
+            </button>
+            <button class="stop">
+                <i class="fa fa-stop"></i>
+            </button>
+            <button class="next">
+                <i class="fa fa-forward"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+  const tracks = ['LA Chill Tour', 'LA Fusion Jam', 'This is it band'];
+
+  const mediaPlayerBlock = document.getElementsByClassName('mediaplayer')[0];
+  const btnPlay = document.getElementsByClassName('playstate')[0];
+  const stopPlayBtn = document.getElementsByClassName('stop')[0];
+  const nextPlayBtn = document.getElementsByClassName('next')[0];
+  const prevPlayBtn = document.getElementsByClassName('back')[0];
+  const title = document.getElementsByClassName('title')[0];
+  const player = document.getElementsByTagName('audio')[0];
+
+  let currentTrack = 0;
+  setTrackSrc(tracks[currentTrack]);
+
+  btnPlay.addEventListener('click', togglePlay);
+  stopPlayBtn.addEventListener('click', stop);
+  nextPlayBtn.addEventListener('click', playNext);
+  prevPlayBtn.addEventListener('click', playPrev);
+
+  function togglePlay() {
+    if (!mediaPlayerBlock.classList.contains('play')) {
+      play();
+    } else {
+      pause();
+    }
+  }
+
+  function play() {
+    mediaPlayerBlock.classList.add('play');
+    player.play();
+  }
+
+  function pause() {
+    mediaPlayerBlock.classList.remove('play');
+    player.pause();
+  }
+
+  function stop() {
+    pause();
+    player.currentTime = 0;
+  }
+
+  function checkIfPaused() {
+    return !mediaPlayerBlock.classList.contains('play');
+  }
+
+  function setTrackSrc(name) {
+    player.src = `./mp3/${name}.mp3`;
+  }
+  
+  function playNext() {
+    if(currentTrack + 1 !== tracks.length) {
+      currentTrack ++;
+    } else {
+      currentTrack = 0;
+    }
+    changeTrack();
+  }
+  
+  function playPrev() {
+    if(currentTrack === 0) {
+      currentTrack = tracks.length - 1;
+    } else {
+      currentTrack--;
+    }
+    changeTrack();
+  }
+  
+  function changeTrack() {
+    setTrackSrc(tracks[currentTrack]);
+    title.title = tracks[currentTrack];
+    if(!checkIfPaused()) {
+      play();
+    }
+  }
+
+</script>
 </body>
 </html>
