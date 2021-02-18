@@ -35,22 +35,20 @@
 </nav>
 <script>
   const galleryView = document.getElementsByClassName('gallery-view')[0];
-  const navItems = document.getElementsByClassName('gallery-nav')[0].getElementsByTagName('a');
+  const navPhotos = Array.from(document.getElementsByClassName('gallery-nav')[0].getElementsByTagName('a'));
 
-  for (const navItem of navItems) {
-    navItem.addEventListener('click', showCurrentPhoto);
-  }
-
-  function showCurrentPhoto(event) {
+  function showPhoto(event) {
     event.preventDefault();
-    const link = event.currentTarget;
-    const href = link.href;
-    for (const navItem of navItems) {
-      navItem.classList.remove('gallery-current');
-    }
-    link.classList.add('gallery-current');
-    galleryView.src = href;
+    galleryView.src = this.href;
+    navPhotos.forEach((photo) => {
+      photo.classList.remove('gallery-current')
+    });
+    this.classList.add('gallery-current');
   }
+
+  navPhotos.forEach((photo) => {
+    photo.addEventListener('click', showPhoto)
+  })
 </script>
 </body>
 </html>

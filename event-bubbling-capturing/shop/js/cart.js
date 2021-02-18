@@ -1,19 +1,18 @@
 'use strict';
 
-
-function handleClick(event) {
-  if (event.target.classList.contains('add-to-cart')) {
-    event.preventDefault();
-    const title = event.target.dataset.title;
-    const price = event.target.dataset.price;
+function clickItem(event) {
+  event.preventDefault();
+  if(event.target.classList.contains('add-to-cart')) {
     const item = {
-      title,
-      price
+      title : event.target.dataset.title,
+      price : event.target.dataset.price,
     };
-    addToCart(item);
+    addToCart(item)
   }
 }
+document.addEventListener('click', clickItem);
 
-const itemsList = document.querySelector('.items-list');
-itemsList.addEventListener('click', handleClick);
+
+
+
 

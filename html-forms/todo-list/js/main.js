@@ -1,34 +1,26 @@
 const listBlock = document.getElementsByClassName('list-block')[0];
-const listInput = document.getElementsByTagName('input');
+const listInputs = Array.from(listBlock.getElementsByTagName('input'));
 let finalCount = document.getElementsByTagName('output')[0];
+const checkedInputs = listInputs.filter((input) => input.checked);
 
 
-let count = 0;
-for (let checkbox of listInput) {
-  if (checkbox.checked) {
-    count++;
-  }
+function removeCheckboxCounter() {
+  listInputs[1].checked = false;
+  finalCount.value = `${checkedInputs.length} из ${ listInputs.length }`;
 }
-finalCount.value = `${ count } из ${ listInput.length }`;
 
+function check() {
+  const checkedInputs = listInputs.filter((input) => input.checked);
+  finalCount.value = `${ checkedInputs.length } из ${ listInputs.length }`;
 
-function checked() {
-  let count = 0;
-  for (let checkbox of listInput) {
-    if (checkbox.checked) {
-      count++;
-    }
-
-    finalCount.value = `${ count } из ${ listInput.length }`;
-
-    if (count !== listInput.length) {
-      listBlock.classList.remove('complete');
-    } else {
-      listBlock.classList.add('complete');
-    }
+  if (checkedInputs.length === listInputs.length) {
+    listBlock.classList.add('complete')
+  } else {
+    listBlock.classList.remove('complete')
   }
 }
 
-for (let item of listInput) {
-  listInput.addEventListener('click', checked);
-}
+listInputs.forEach((input) => {
+  input.addEventListener('click', check);
+});
+document.addEventListener('DOMContentLoaded', removeCheckboxCounter);

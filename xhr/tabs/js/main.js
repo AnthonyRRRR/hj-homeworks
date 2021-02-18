@@ -1,34 +1,33 @@
+'use strict';
+
 const tabs = Array.from(document.querySelectorAll('.tabs a'));
-//console.log(tabs);
-const activeTab = document.querySelector('.tabs a.active');
-const tabContent = document.getElementById('content');
-const preloader = document.getElementById('preloader');
+const tabContent = document.querySelector('#content');
+const preloader = document.querySelector('#preloader');
+
+function onTabClick(event) {
+  event.preventDefault();
+  openTab(event.currentTarget);
+}
 
 function openTab(tab) {
-  const link = tab.href;
   tabs.forEach((tab) => {
     tab.classList.remove('active')
   });
   tab.classList.add('active');
 
+  const link = tab.href;
   const xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", onLoad);
-  xhr.addEventListener("error", onError);
-  xhr.addEventListener("loadstart", onLoadStart);
-  xhr.addEventListener("loadend", onLoadEnd);
-  xhr.open("GET", link, true);
+  xhr.addEventListener('loadstart', onLoadStart);
+  xhr.addEventListener('load', onLoad);
+  xhr.addEventListener('loadend', onLoadEnd);
+  xhr.open('GET', link, true);
   xhr.send();
-}
 
-
-function clickTab(e) {
-  e.preventDefault();
-  const tab = e.currentTarget;
-  openTab(tab);
-}
-
-function onError() {
-  console.log('error');
+  function onLoad() {
+    if (xhr.status === 200) {
+      tabContent.innerHTML = xhr.responseText;
+    }
+  }
 }
 
 function onLoadStart() {
@@ -39,23 +38,13 @@ function onLoadEnd() {
   preloader.classList.add('hidden');
 }
 
-function onLoad(e) {
-  const xhr = e.currentTarget;
+tabs.forEach((tab) => {
+  tab.addEventListener('click', onTabClick)
+});
 
-  if(xhr.status === 200) {
-    content.innerHTML = xhr.responseText;
-    console.log(xhr.responseText)
-    console.log(xhr.status)
-  }
-}
 
-function init() {
-  openTab(activeTab);
+openTab(tabs[0]);
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', clickTab);
-  });
-}
 
-document.addEventListener('DOMContentLoaded', init);
+
 

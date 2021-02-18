@@ -29,22 +29,28 @@ function backClick() {
   }
 }
 
-function pushContacts() {
-  const contacts = JSON.parse(loadContacts());
-  const contactsList = container.querySelector('.contacts-list');
-  contactsList.innerHTML = '';
-  contacts.forEach((contact) => {
-    contactsList.innerHTML += `<li data-email = "${ contact.email }" data-phone = "${ contact.phone }"
-       <strong>${ contact.name }</strong> </li>`
-  })
+function getContactsListHtml(contactsList) {
+  return contactsList.reduce((acc, contact) => {
+   return acc + `
+        <li data-email="${contact.email}" data-phone="${contact.phone}">
+            <strong>${contact.name}</strong>
+        </li>`
+  },'')
 }
 
+function addContacts() {
+  const contactsList = document.querySelector('.contacts-list');
+  const contacts = JSON.parse(loadContacts());
+
+  contactsList.innerHTML = '';
+  contactsList.innerHTML += getContactsListHtml(contacts)
+}
 
 function init() {
   container = document.getElementById('container');
   container.querySelector('.list-view').addEventListener('click', contactClick);
   container.querySelector('.back').addEventListener('click', backClick);
-  pushContacts();
+  addContacts();
 }
 
 document.addEventListener('DOMContentLoaded', init);

@@ -1,21 +1,31 @@
-const content = document.getElementById('content');
+'use strict';
 
-const request = new XMLHttpRequest();
-request.addEventListener('load', onLoad);
-request.open('GET', "https://neto-api.herokuapp.com/book/", true);
-request.send();
+let xhr = new XMLHttpRequest();
+xhr.addEventListener('load', onLoad);
+xhr.open('GET', 'https://neto-api.herokuapp.com/book/', true);
+xhr.send();
 
 function onLoad() {
-  const books = JSON.parse(request.responseText);
-  console.log(books);
-  content.innerHTML = '';
-  books.forEach((book) => {content.innerHTML += `<li data-title = "${ book.title }"
-                            data-author = "${ book.author.name }" 
-                            data-info="${ book.info }"
-                            data-price = "${ book.price }">
-                            \`<img src = "${ book.cover.small }">\`
-                                                                </li>`;
+  const data = JSON.parse(xhr.responseText);
+  const booksList = document.querySelector('#content');
+    booksList.innerHTML = '';
+  data.forEach((book) => {
+    booksList.innerHTML += `<li
+                                data-title = "${ book.title }"
+                                data-author = "${ book.author.name }"
+                                data-info = "${ book.info }"
+                                data-price = "${ book.price }">
+                            <img src="${book.cover.small}">
+                            </li>`
   })
 }
 
-addEventListener('load', onLoad);
+
+function init() {
+  document.querySelectorAll('li').forEach((book) => {
+    book.addEventListener('click', onLoad)
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+

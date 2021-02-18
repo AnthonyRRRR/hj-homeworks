@@ -48,22 +48,35 @@
 <script>
   const nav = document.getElementsByTagName('nav')[0];
   const secret = document.getElementsByClassName('secret')[0];
-  const secretCode = ['keyY', 'keyT', 'keyN', 'keyJ', 'keyK', 'keyJ', 'keyU', 'keyB','keyZ'];
+  const secretCode = ['KeyY', 'KeyT', 'KeyN', 'KeyJ', 'KeyK', 'KeyJ', 'KeyU', 'KeyB','KeyZ'];
   const userCode = [];
+  const secretCodeLength = secretCode.length;
 
   document.addEventListener('keydown', toggleMenu);
   document.addEventListener('keydown', checkSecretCode);
 
   function toggleMenu(e) {
-    if (e.ctrlKey && e.altKey && e.code === 'keyT') {
-      return;
-    } else {
+    if (e.ctrlKey && e.altKey && e.code === 'KeyT') {
       nav.classList.toggle('visible');
     }
   }
 
-  function checkSecretCode() {
+  function checkSecretCode(event) {
+    userCode.push(event.code);
+    if(userCode.length > secretCodeLength) {
+      userCode.shift();
+    }
+    if(userCode.length === secretCodeLength) {
+      const confirm = userCode.every((key, i) => key === secretCode[i]);
 
+      console.log(userCode);
+      console.log(secretCode);
+
+      if (confirm) {
+        console.log('ok');
+        secret.classList.toggle('visible')
+      }
+    }
   }
 </script>
 </body>

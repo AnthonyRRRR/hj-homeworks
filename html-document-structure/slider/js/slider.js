@@ -7,8 +7,8 @@ const firstButton = sliderNav.querySelector('a[data-action="first"]');
 const lastButton = sliderNav.querySelector('a[data-action="last"]');
 const slides = Array.from(slider.querySelectorAll('.slide'));
 const firstSlide = slidesBlock.firstElementChild;
+firstSlide.classList.add('slide-current');
 const lastSlide = slidesBlock.lastElementChild;
-
 
 const setCurrentSlide = (slide) => {
   slides.forEach((slide) => {
@@ -69,6 +69,70 @@ firstButton.addEventListener('click', () => {
 lastButton.addEventListener('click', () => {
   setCurrentSlide(lastSlide)
 });
+// const slideList = Array.from(slidesBlock.children);
+// console.log(slideList);
+// function sliderMove(isForward) {
+//   const currentSlide = slider.querySelector('.slide-current');
+//   currentSlide.classList.add('slide-current');
+//   slides.forEach((slide) => {
+//     slide.classList.remove('slide-current')
+//   });
+//   const activeSlide = isForward ? currentSlide.nextElementSibling : currentSlide.previousElementSibling;
+//   currentSlide.classList.remove('slide-current');
+//   activeSlide.classList.add('slide-current');
+//
+//
+//
+//   if (!activeSlide.nextElementSibling) {
+//     nextButton.disabled = true;
+//     lastButton.disabled = true;
+//     nextButton.classList.add('disabled');
+//     lastButton.classList.add('disabled')
+//   } else {
+//     nextButton.disabled = false;
+//     lastButton.disabled = false;
+//     nextButton.classList.remove('disabled');
+//     lastButton.classList.remove('disabled');
+//   }
+//
+//   if (!activeSlide.previousElementSibling) {
+//     prevButton.disabled = true;
+//     firstButton.disabled = true;
+//     prevButton.classList.add('disabled');
+//     firstButton.classList.add('disabled');
+//   } else {
+//     prevButton.disabled = false;
+//     firstButton.disabled = false;
+//     prevButton.classList.remove('disabled');
+//     firstButton.classList.remove('disabled');
+//   }
+//
+// }
+//
+// function firstButtonClick(){
+//   firstSlide.classList.add('slide-current');
+//   activeSlide.classList.remove('slide-current');
+// }
+//
+// function lastButtonClick() {
+//   lastSlide.classList.add('slide-current');
+//   activeSlide.classList.remove('slide-current');
+// }
+//
+// lastButton.addEventListener('click', lastButtonClick);
+// firstButton.addEventListener('click', firstButtonClick);
+//
+// nextButton.addEventListener('click', (event) => {
+//   sliderMove(true)
+// });
+// prevButton.addEventListener('click', (event) => {
+//   sliderMove(false)
+// });
+
+
+
+
+
 
 
 
